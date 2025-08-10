@@ -9,7 +9,7 @@
           content="Clínica dental Sonrisa Saludable: servicios de odontología general, ortodoncia, implantes y más. Agenda tu cita y descubre una sonrisa saludable.">
 
     <!-- Favicon (logo enviado por el cliente) -->
-    <link rel="icon" href="logo.png" type="image/jpeg">
+    <link rel="icon" href="Imagen%20de%20WhatsApp%202025-08-09%20a%20las%2018.36.33_9a01b5fa.jpg" type="image/jpeg">
 
     <!-- ==== Fuentes y iconos ==== -->
     <link rel="stylesheet"
@@ -121,37 +121,14 @@
         .btn-outline:hover {
             background:rgba(0,95,137,.05);
         }
-        
-        .appointment { padding:5rem 0; background:var(--white); }
-        .appointment form {
-        max-width:600px; margin:auto; display:grid; gap:1rem;
-        }
-        .appointment input,
-        .appointment textarea {
-        width:100%; padding:.8rem; border:1px solid #ccc;
-        border-radius:5px; font-family:inherit;
-        }
-        .appointment button {
-        background:linear-gradient(90deg,var(--primary),var(--secondary));
-        color:var(--white); border:none; padding:.8rem 1.5rem;
-        border-radius:30px; font-weight:600; cursor:pointer;
-        transition:transform .3s;
-        }
-        .appointment button:hover { transform:translateY(-2px); }
-        .hero-image img {
-            width:100%; height:auto; border-radius:10px;
-            box-shadow:0 4px 15px rgba(0,0,0,.1);
-        }
-        
 
         /* ==== Services ==== */
         .services { padding:5rem 0; background:var(--white); }
         .section-header { text-align:center; max-width:800px; margin:auto 0 3rem; }
         .section-subtitle {
-        color:var(--secondary); font-weight:600; letter-spacing:1px;
+            color:var(--secondary); font-weight:600; letter-spacing:1px;
             margin-bottom:1rem; text-transform:uppercase;
         }
-        
         .section-title {
             font-family:'Montserrat',sans-serif; font-size:2.2rem;
             font-weight:700; color:var(--primary); margin-bottom:1rem;
@@ -236,9 +213,9 @@
     <header>
         <div class="header-container">
             <div class="logo">
-        <img src="logo.png"
+                <img src="Imagen%20de%20WhatsApp%202025-08-09%20a%20las%2018.36.33_9a01b5fa.jpg"
                      alt="Logotipo Sonrisa Saludable">
-                <span class="logo-text">LiaDent</span>
+                <span class="logo-text">Sonrisa Saludable</span>
             </div>
 
             <nav aria-label="Menú principal">
@@ -308,21 +285,6 @@
             <p>Somos una clínica dental con más de 10 años de experiencia, comprometidos con la salud y la estética de tu sonrisa. Nuestro equipo está formado por profesionales certificados y utilizamos equipos de última generación.</p>
         </div>
     </section>
-    <section id="appointment" class="appointment">
-    <div class="section-header">
-        <p class="section-subtitle">Agendar Cita</p>
-        <h2 class="section-title">Reserva tu cita ahora</h2>
-    </div>
-    <form id="appointment-form">
-        <input type="text" name="user_name" placeholder="Nombre completo" required>
-        <input type="email" name="user_email" placeholder="Correo electrónico" required>
-        <input type="tel" name="user_phone" placeholder="Teléfono" required>
-        <input type="date" name="appointment_date" required>
-        <input type="time" name="appointment_time" required>
-        <textarea name="message" rows="5" placeholder="Mensaje o motivo de la cita" required></textarea>
-        <button type="submit">Agendar Cita</button>
-    </form>
-</section>
 
     <!-- ==== Blog ==== -->
     <section id="blog" class="blog">
@@ -379,7 +341,6 @@
     </footer>
 
 </body>
-  <script src="https://cdn.emailjs.com/sdk/4.3.3/email.min.js"></script>
 <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             const script = document.createElement('script');
@@ -407,25 +368,6 @@
             };
             document.head.appendChild(script);
         });
-        document.addEventListener('DOMContentLoaded', () => {
-    emailjs.init("2pXEsujV1RO63mG4C");
-
-    const appointmentForm = document.getElementById('appointment-form');
-    if (appointmentForm) {
-        appointmentForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            emailjs.sendForm('service_oso1ui9', 'template_appointment', this)
-                .then(() => {
-                    alert('Cita agendada con éxito. Nos pondremos en contacto contigo.');
-                    appointmentForm.reset();
-                })
-                .catch(error => {
-                    alert('Error al agendar la cita. Inténtalo de nuevo.');
-                    console.error('Error:', error);
-                });
-        });
-    }
-});
     </script>
 
     <!-- ==== Scripts ==== -->
