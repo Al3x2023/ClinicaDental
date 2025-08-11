@@ -1044,9 +1044,27 @@
             });
         }, { threshold: 0.1 });
 
+
         document.querySelectorAll('section, .hero').forEach(el => {
             observer.observe(el);
         });
+
+            // Formulario de citas
+            const appointmentForm = document.getElementById('appointment-form');
+            if (appointmentForm) {
+                appointmentForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    emailjs.sendForm('service_oso1ui9', 'template_6gynhr9', this)
+                        .then(function() {
+                            alert('Cita agendada con éxito! Nos pondremos en contacto contigo.');
+                            appointmentForm.reset();
+                        }, function(error) {
+                            alert('Error al agendar la cita. Por favor inténtalo de nuevo más tarde.');
+                            console.error('Error EmailJS:', error);
+                        });
+                });
+            }
+
 
         // Menú móvil
         const hamburger = document.querySelector('.hamburger');
