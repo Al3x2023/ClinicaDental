@@ -13,14 +13,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root {
-            --primary: #6A0DAD;
-            --secondary: #B19CD9;
-            --dark: #2D3748;
-            --light: #F8F5FC;
+         :root {
+            --primary: #005F89;   /* Azul corporativo */
+            --secondary: #00B4B4; /* Turquesa */
+            --dark: #2D3748;      /* Gris oscuro */
+            --light: #F7FAFC;     /* Gris claro */
             --white: #FFFFFF;
-            --gray: #777;
-            --transition: all 0.3s ease;
         }
 
         :root.dark {
@@ -87,7 +85,7 @@
         }
 
         .logo-text {
-            background: linear-gradient(90deg, #6A0DAD, #b237d4);
+            background: linear-gradient(90deg, #005F89, #00B4B4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -100,7 +98,7 @@
             top: 0; left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(133, 55, 212, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(55, 167, 212, 0.3), transparent);
             background-size: 200% 100%;
             pointer-events: none;
             animation: shine 3s infinite ease-in-out;
@@ -120,13 +118,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            filter: drop-shadow(0 2px 4px rgba(106, 13, 173, 0.4));
+            filter: drop-shadow(0 2px 4px rgba(13, 82, 173, 0.4));
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .logo:hover::before {
             transform: rotate(20deg) scale(1.2);
-            filter: drop-shadow(0 4px 8px rgba(133, 55, 212, 0.6));
+            filter: drop-shadow(0 4px 8px rgba(55, 118, 212, 0.6));
         }
 
         .logo:hover .logo-text {
@@ -179,12 +177,12 @@
             border-radius: 30px;
             font-weight: 600;
             transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 10px rgba(106,13,173,0.2);
+            box-shadow: 0 4px 10px rgba(13, 85, 173, 0.2);
         }
 
         .btn-contact:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(106,13,173,0.3);
+            box-shadow: 0 6px 15px rgba(13, 82, 173, 0.3);
         }
 
         .hamburger {
@@ -225,7 +223,7 @@
         .hero {
             padding: 12rem 0 6rem;
             margin-top: 80px;
-            background: linear-gradient(135deg, rgba(106,13,173,0.08), #fff);
+            background: linear-gradient(135deg, rgba(13, 90, 173, 0.08), #fff);
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.8s ease;
@@ -277,12 +275,12 @@
         .btn-primary {
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             color: var(--white);
-            box-shadow: 0 4px 15px rgba(106,13,173,0.2);
+            box-shadow: 0 4px 15px rgba(13, 125, 173, 0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(106,13,173,0.3);
+            box-shadow: 0 8px 20px rgba(13, 128, 173, 0.3);
         }
 
         .btn-outline {
@@ -291,7 +289,7 @@
         }
 
         .btn-outline:hover {
-            background: rgba(106,13,173,0.05);
+            background: rgba(13, 114, 173, 0.05);
             transform: translateY(-2px);
         }
 
@@ -380,7 +378,7 @@
             margin-bottom: 1.5rem;
             color: var(--white);
             font-size: 1.5rem;
-            box-shadow: 0 4px 10px rgba(106,13,173,0.3);
+            box-shadow: 0 4px 10px rgba(13, 98, 173, 0.3);
         }
 
         .service-title {
@@ -417,7 +415,7 @@
         form textarea:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(106,13,173,0.1);
+            box-shadow: 0 0 0 3px rgba(13, 112, 173, 0.1);
         }
 
         form button {
@@ -429,12 +427,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(106,13,173,0.2);
+            box-shadow: 0 4px 10px rgba(13, 120, 173, 0.2);
         }
 
         form button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(106,13,173,0.3);
+            box-shadow: 0 6px 15px rgba(13, 125, 173, 0.3);
         }
 
         /* ==== Galería ==== */
@@ -689,7 +687,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(106,13,173,0.4);
+            box-shadow: 0 4px 15px rgba(13, 125, 173, 0.4);
             z-index: 99;
             cursor: pointer;
             transition: transform 0.3s;
