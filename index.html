@@ -1,256 +1,819 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- ==== Metadatos ==== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonrisa Saludable | Odontología de Excelencia</title>
-    <meta name="description"
-          content="Clínica dental Sonrisa Saludable: servicios de odontología general, ortodoncia, implantes y más. Agenda tu cita y descubre una sonrisa saludable.">
+    <title>LiaDent | Odontología de Excelencia</title>
+    <meta name="description" content="Clínica dental LiaDent: servicios de odontología general, ortodoncia, implantes y más. Agenda tu cita.">
 
-    <!-- Favicon (logo enviado por el cliente) -->
     <link rel="icon" href="logo.png" type="image/jpeg">
 
-    <!-- ==== Fuentes y iconos ==== -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lato:wght@400;700&display=swap">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- ==== Estilos globales ==== -->
     <style>
         :root {
-            --primary: #005F89;   /* Azul corporativo */
-            --secondary: #00B4B4; /* Turquesa */
-            --dark: #2D3748;      /* Gris oscuro */
-            --light: #F7FAFC;     /* Gris claro */
+            --primary: #6A0DAD;
+            --secondary: #B19CD9;
+            --dark: #2D3748;
+            --light: #F8F5FC;
             --white: #FFFFFF;
+            --gray: #777;
+            --transition: all 0.3s ease;
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+        :root.dark {
+            --dark: #E2E8F0;
+            --light: #1A1A2E;
+            --white: #1E1E1E;
+            --gray: #A0AEC0;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Lato', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             background-color: var(--light);
             color: var(--dark);
             line-height: 1.6;
+            transition: background-color 0.4s, color 0.4s;
+            overflow-x: hidden;
         }
 
-        a { text-decoration:none; color:inherit; }
-        img { max-width:100%; display:block; }
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1200px; margin: auto; padding: 0 2rem; }
 
         /* ==== Header ==== */
         header {
-            position:fixed; top:0; left:0; width:100%;
+            position: fixed;
+            top: 0;
+            width: 100%;
             background: var(--white);
-            box-shadow:0 2px 10px rgba(0,0,0,.05);
-            z-index:1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            transition: var(--transition);
         }
-        .header-container {
-            max-width:1200px; margin:auto; padding:1rem 2rem;
-            display:flex; justify-content:space-between; align-items:center;
-        }
-        .logo { display:flex; align-items:center; gap:10px; }
-        .logo img { height:40px; }
-        .logo-text {
-            font-family:'Montserrat',sans-serif;
-            font-weight:700; font-size:1.5rem; color:var(--primary);
-        }
-        nav {
-            display:flex; gap:2rem;
-        }
-        nav a {
-            font-weight:600; font-size:.95rem; color:var(--dark);
-            transition:color .3s;
-        }
-        nav a:hover,
-        nav a.active { color:var(--primary); }
-        .btn-contact {
-            background:linear-gradient(90deg,var(--primary),var(--secondary));
-            color:var(--white); padding:.6rem 1.5rem;
-            border-radius:30px; font-weight:600;
-            transition:transform .3s;
-        }
-        .btn-contact:hover { transform:translateY(-3px); }
 
-        /* ==== Hamburger (mobile) ==== */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        /* ==== Logo con muelita animada ==== */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .logo:hover {
+            transform: translateY(-3px);
+        }
+
+        .logo-text {
+            background: linear-gradient(90deg, #6A0DAD, #b237d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(133, 55, 212, 0.3), transparent);
+            background-size: 200% 100%;
+            pointer-events: none;
+            animation: shine 3s infinite ease-in-out;
+            opacity: 0.8;
+            border-radius: 8px;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .logo::before {
+            content: '🦷';
+            font-size: 1.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 2px 4px rgba(106, 13, 173, 0.4));
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .logo:hover::before {
+            transform: rotate(20deg) scale(1.2);
+            filter: drop-shadow(0 4px 8px rgba(133, 55, 212, 0.6));
+        }
+
+        .logo:hover .logo-text {
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 1; }
+            to { opacity: 0.85; }
+        }
+
+        /* ==== Navegación ==== */
+        nav {
+            display: flex;
+            gap: 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        nav a {
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .btn-contact {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px rgba(106,13,173,0.2);
+        }
+
+        .btn-contact:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(106,13,173,0.3);
+        }
+
         .hamburger {
-            display:none; flex-direction:column; gap:.3rem; cursor:pointer;
+            display: none;
+            flex-direction: column;
+            gap: 0.3rem;
+            cursor: pointer;
         }
+
         .hamburger span {
-            width:25px; height:3px; background:var(--dark);
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            transition: var(--transition);
         }
-        @media (max-width:768px){
-            nav { display:none; flex-direction:column; background:var(--white);
-                  position:absolute; top:100%; right:0; width:200px; padding:1rem;
-                  box-shadow:0 4px 12px rgba(0,0,0,.1); }
-            nav.open { display:flex; }
-            .hamburger{display:flex;}
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            nav {
+                display: none;
+                flex-direction: column;
+                background: var(--white);
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 200px;
+                padding: 1rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                border-radius: 8px;
+            }
+            nav.open { display: flex; }
+            .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+            .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+            .hamburger.open span:nth-child(2) { opacity: 0; }
         }
 
         /* ==== Hero ==== */
         .hero {
-            padding:10rem 0 5rem; margin-top:80px;
-            background:linear-gradient(135deg,rgba(0,95,137,.1),#fff);
+            padding: 12rem 0 6rem;
+            margin-top: 80px;
+            background: linear-gradient(135deg, rgba(106,13,173,0.08), #fff);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
         }
+
+        .hero.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .hero-container {
-            max-width:1200px; margin:auto;
-            display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
         }
+
         .hero-content h1 {
-            font-family:'Montserrat',sans-serif; font-size:2.8rem;
-            font-weight:700; color:var(--primary); margin-bottom:1.5rem;
-            line-height:1.2;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
         }
-        .hero-content p { margin-bottom:2rem; font-size:1.1rem; }
-        .hero-buttons { display:flex; gap:1rem; }
+
+        .hero-content h1 span {
+            color: var(--secondary);
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
         .btn {
-            padding:.8rem 1.8rem; border-radius:30px; font-weight:600;
-            transition:all .3s;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
         }
+
         .btn-primary {
-            background:linear-gradient(90deg,var(--primary),var(--secondary));
-            color:var(--white); box-shadow:0 4px 15px rgba(0,95,137,.2);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(106,13,173,0.2);
         }
+
         .btn-primary:hover {
-            transform:translateY(-3px);
-            box-shadow:0 6px 20px rgba(0,95,137,.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(106,13,173,0.3);
         }
+
         .btn-outline {
-            border:2px solid var(--primary); color:var(--primary);
+            border: 2px solid var(--primary);
+            color: var(--primary);
         }
+
         .btn-outline:hover {
-            background:rgba(0,95,137,.05);
+            background: rgba(106,13,173,0.05);
+            transform: translateY(-2px);
         }
-        
-        .appointment { padding:5rem 0; background:var(--white); }
-        .appointment form {
-        max-width:600px; margin:auto; display:grid; gap:1rem;
-        }
-        .appointment input,
-        .appointment textarea {
-        width:100%; padding:.8rem; border:1px solid #ccc;
-        border-radius:5px; font-family:inherit;
-        }
-        .appointment button {
-        background:linear-gradient(90deg,var(--primary),var(--secondary));
-        color:var(--white); border:none; padding:.8rem 1.5rem;
-        border-radius:30px; font-weight:600; cursor:pointer;
-        transition:transform .3s;
-        }
-        .appointment button:hover { transform:translateY(-2px); }
+
         .hero-image img {
-            width:100%; height:auto; border-radius:10px;
-            box-shadow:0 4px 15px rgba(0,0,0,.1);
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease;
         }
-        
+
+        .hero-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* ==== Secciones ==== */
+        section {
+            padding: 6rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-subtitle {
+            color: var(--secondary);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
 
         /* ==== Services ==== */
-        .services { padding:5rem 0; background:var(--white); }
-        .section-header { text-align:center; max-width:800px; margin:auto 0 3rem; }
-        .section-subtitle {
-        color:var(--secondary); font-weight:600; letter-spacing:1px;
-            margin-bottom:1rem; text-transform:uppercase;
-        }
-        
-        .section-title {
-            font-family:'Montserrat',sans-serif; font-size:2.2rem;
-            font-weight:700; color:var(--primary); margin-bottom:1rem;
-        }
+        .services { background: var(--white); }
+
         .services-grid {
-            display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-            gap:2rem; max-width:1200px; margin:auto; padding:0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
         }
+
         .service-card {
-            background:var(--white); border-radius:10px; padding:2rem;
-            box-shadow:0 5px 15px rgba(0,0,0,.05);
-            border:1px solid rgba(0,0,0,.05);
-            transition:all .3s;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+            transform: translateY(0);
+            perspective: 1000px;
         }
+
         .service-card:hover {
-            transform:translateY(-5px);
-            box-shadow:0 10px 25px rgba(0,0,0,.1);
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
+
         .service-icon {
-            width:60px; height:60px; background:linear-gradient(135deg,var(--primary),var(--secondary));
-            border-radius:12px; display:flex; align-items:center; justify-content:center;
-            margin-bottom:1.5rem; color:var(--white); font-size:1.5rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(106,13,173,0.3);
         }
+
         .service-title {
-            font-family:'Montserrat',sans-serif; font-size:1.3rem;
-            font-weight:600; margin-bottom:1rem; color:var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
         }
 
-        /* ==== About ==== */
-        .about { padding:5rem 0; background:var(--light); }
-        .about .content { max-width:900px; margin:auto; text-align:center; }
+        /* ==== Formulario ==== */
+        .appointment, .contact {
+            background: var(--white);
+        }
 
-        /* ==== Contact ==== */
-        .contact { padding:5rem 0; background:var(--white); }
-        .contact form {
-            max-width:600px; margin:auto; display:grid; gap:1rem;
+        form {
+            max-width: 600px;
+            margin: auto;
+            display: grid;
+            gap: 1rem;
         }
-        .contact input,
-        .contact textarea {
-            width:100%; padding:.8rem; border:1px solid #ccc;
-            border-radius:5px; font-family:inherit;
-        }
-        .contact button {
-            background:linear-gradient(90deg,var(--primary),var(--secondary));
-            color:var(--white); border:none; padding:.8rem 1.5rem;
-            border-radius:30px; font-weight:600; cursor:pointer;
-            transition:transform .3s;
-        }
-        .contact button:hover { transform:translateY(-2px); }
 
-        /* ==== Blog ==== */
-        .blog { padding:5rem 0; background:var(--light); }
-        .blog-grid {
-            display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-            gap:2rem; max-width:1200px; margin:auto; padding:0 2rem;
+        form input,
+        form textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: var(--transition);
         }
-        .blog-card {
-            background:var(--white); border-radius:10px; overflow:hidden;
-            box-shadow:0 4px 12px rgba(0,0,0,.05);
+
+        form input:focus,
+        form textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(106,13,173,0.1);
         }
-        .blog-card img { height:180px; object-fit:cover; }
-        .blog-card .info { padding:1rem; }
-        .blog-card h3 { margin-bottom:.5rem; color:var(--primary); }
-        .blog-card p { font-size:.9rem; color:#555; }
+
+        form button {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--white);
+            border: none;
+            padding: 0.9rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(106,13,173,0.2);
+        }
+
+        form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(106,13,173,0.3);
+        }
+
+        /* ==== Galería ==== */
+        .gallery {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--light);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .gallery-item img {
+            height: 250px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .gallery-label {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* ==== Testimonios ==== */
+        .testimonials {
+            background: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            min-width: 300px;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .client {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .client img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .client-info h4 {
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .client-info span {
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+
+        .dots {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: var(--primary);
+        }
+
+        /* ==== Mapa ==== */
+        .map {
+            background: var(--white);
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .map iframe {
+            width: 100%;
+            height: 450px;
+            border: 0;
+        }
 
         /* ==== Footer ==== */
         footer {
-            background:var(--dark); color:var(--white);
-            text-align:center; padding:2rem 0;
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 0 2rem;
+            transition: background 0.4s;
         }
 
-        /* ==== Responsivo ==== */
-        @media (max-width:768px){
-            .hero-container { grid-template-columns:1fr; text-align:center; }
-            .hero-buttons { justify-content:center; }
-            nav { flex-direction:column; }
+        .footer-content {
+            max-width: 800px;
+            margin: auto;
+            padding: 0 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .dark-mode-toggle i {
+            transition: transform 0.3s;
+        }
+
+        .dark-mode-toggle:hover i {
+            transform: rotate(30deg);
+        }
+
+        /* ==== WhatsApp & Chatbot ==== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 100;
+            transition: transform 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .chatbot-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(106,13,173,0.4);
+            z-index: 99;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .chatbot-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 170px;
+            right: 30px;
+            width: 320px;
+            height: 400px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 98;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .msg {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .msg.bot {
+            background: #f1f1f1;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .msg.user {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-footer {
+            padding: 0.8rem;
+            border-top: 1px solid #eee;
+            display: flex;
+        }
+
+        .chat-footer input {
+            flex: 1;
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            font-size: 0.9rem;
+        }
+
+        .chat-footer button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 1rem;
+            border-radius: 24px;
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+
+        /* ==== Responsive ==== */
+        @media (max-width: 768px) {
+            .hero-container { grid-template-columns: 1fr; text-align: center; }
+            .hero-content h1 { font-size: 2.4rem; }
+            .hero-buttons { justify-content: center; }
+            .section-title { font-size: 2rem; }
+            .logo { font-size: 1.6rem; }
         }
     </style>
 </head>
 <body>
+
     <!-- ==== Header ==== -->
     <header>
         <div class="header-container">
-            <div class="logo">
-                <img src="logo.png" alt="Logotipo Sonrisa Saludable">
+            <a href="#home" class="logo">
                 <span class="logo-text">LiaDent</span>
-            </div>
+            </a>
 
             <nav aria-label="Menú principal">
                 <a href="#home" class="active">Inicio</a>
                 <a href="#services">Servicios</a>
-                <a href="#about">Nosotros</a>
-                <a href="#blog">Blog</a>
+                <a href="#gallery">Galería</a>
+                <a href="#testimonials">Testimonios</a>
                 <a href="#contact">Contacto</a>
                 <a href="#appointment" class="btn-contact">Agendar Cita</a>
             </nav>
 
-            <!-- Hamburger para móvil -->
-            <div class="hamburger" aria-label="Abrir menú" tabindex="0">
+            <div class="hamburger">
                 <span></span><span></span><span></span>
             </div>
         </div>
@@ -258,212 +821,390 @@
 
     <!-- ==== Hero ==== -->
     <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1>Odontología de <span style="color:var(--secondary);">Excelencia</span></h1>
-                <p>En Sonrisa Saludable combinamos tecnología de vanguardia con un equipo de especialistas para brindarte el más alto estándar en cuidado dental.</p>
-                <div class="hero-buttons">
-                    <a href="#appointment" class="btn btn-primary">Agendar Consulta</a>
-                    <a href="#services" class="btn btn-outline">Nuestros Servicios</a>
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Odontología de <span>Excelencia</span></h1>
+                    <p>En LiaDent combinamos tecnología de vanguardia con un equipo de especialistas para brindarte el más alto estándar en cuidado dental.</p>
+                    <div class="hero-buttons">
+                        <a href="#appointment" class="btn btn-primary">Agendar Consulta</a>
+                        <a href="#services" class="btn btn-outline">Nuestros Servicios</a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1470&q=80"
-                     alt="Imagen de clínica dental">
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1470&q=80" alt="Clínica dental moderna">
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ==== Servicios ==== -->
     <section id="services" class="services">
-        <div class="section-header">
-            <p class="section-subtitle">Nuestros Servicios</p>
-            <h2 class="section-title">Cuidado Dental Integral</h2>
-            <p>Ofrecemos tratamientos especializados con tecnología de punta para todas las necesidades odontológicas.</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-tooth"></i></div>
-                <h3 class="service-title">Odontología General</h3>
-                <p>Revisiones periódicas, limpiezas profesionales y tratamientos preventivos para mantener tu salud bucal.</p>
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Nuestros Servicios</p>
+                <h2 class="section-title">Cuidado Dental Integral</h2>
+                <p>Ofrecemos tratamientos especializados con tecnología de punta para todas las necesidades odontológicas.</p>
             </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-teeth"></i></div>
-                <h3 class="service-title">Ortodoncia</h3>
-                <p>Sistemas de brackets metálicos, estéticos y alineadores invisibles para una sonrisa perfecta.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-teeth-open"></i></div>
-                <h3 class="service-title">Implantes Dentales</h3>
-                <p>Soluciones permanentes para reemplazar dientes perdidos con la más alta tecnología.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-tooth"></i></div>
+                    <h3 class="service-title">Odontología General</h3>
+                    <p>Revisiones periódicas, limpiezas profesionales y tratamientos preventivos para mantener tu salud bucal.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-teeth"></i></div>
+                    <h3 class="service-title">Ortodoncia</h3>
+                    <p>Brackets y alineadores transparentes para una sonrisa perfecta.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-teeth-open"></i></div>
+                    <h3 class="service-title">Implantes Dentales</h3>
+                    <p>Soluciones permanentes para reemplazar dientes perdidos con la más alta tecnología.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ==== Nosotros ==== -->
-    <section id="about" class="about">
-        <div class="content">
-            <h2 class="section-title">Sobre Sonrisa Saludable</h2>
-            <p>Somos una clínica dental con más de 10 años de experiencia, comprometidos con la salud y la estética de tu sonrisa. Nuestro equipo está formado por profesionales certificados y utilizamos equipos de última generación.</p>
+    <!-- ==== Galería ==== -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Resultados Reales</p>
+                <h2 class="section-title">Antes y Después</h2>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="blanco">Blanqueamiento</button>
+                <button class="filter-btn" data-filter="orto">Ortodoncia</button>
+                <button class="filter-btn" data-filter="implante">Implantes</button>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-type="blanco">
+                    <img src="https://images.unsplash.com/photo-1564648897888-107882648810?auto=format&fit=crop&w=800&q=80" alt="Antes y después blanqueamiento">
+                    <div class="gallery-label">Antes → Después</div>
+                </div>
+                <div class="gallery-item" data-type="orto">
+                    <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=800&q=80" alt="Ortodoncia">
+                    <div class="gallery-label">Antes → Después</div>
+                </div>
+                <div class="gallery-item" data-type="implante">
+                    <img src="https://images.unsplash.com/photo-1598256989800-62a154c5a090?auto=format&fit=crop&w=800&q=80" alt="Implante">
+                    <div class="gallery-label">Antes → Después</div>
+                </div>
+            </div>
         </div>
     </section>
-    
+
+    <!-- ==== Testimonios ==== -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Lo que dicen</p>
+                <h2 class="section-title">Nuestros Pacientes</h2>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <p>"Me cambiaron la sonrisa. Ahora me siento más seguro y feliz."</p>
+                    <div class="client">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="María">
+                        <div class="client-info">
+                            <h4>María G.</h4>
+                            <span>Blanqueamiento</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"El trato fue excelente y el resultado superó mis expectativas."</p>
+                    <div class="client">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos">
+                        <div class="client-info">
+                            <h4>Carlos R.</h4>
+                            <span>Implante</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Muy profesionales, puntuales y amables. 100% recomendado."</p>
+                    <div class="client">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana">
+                        <div class="client-info">
+                            <h4>Ana L.</h4>
+                            <span>Ortodoncia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+            </div>
+        </div>
+    </section>
+
     <!-- ==== Citas ==== -->
     <section id="appointment" class="appointment">
-        <div class="section-header">
-            <p class="section-subtitle">Agendar Cita</p>
-            <h2 class="section-title">Reserva tu cita ahora</h2>
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Agendar Cita</p>
+                <h2 class="section-title">Reserva tu cita ahora</h2>
+            </div>
+            <form id="appointment-form">
+                <input type="text" name="user_name" placeholder="Nombre completo" required>
+                <input type="email" name="user_email" placeholder="Correo electrónico" required>
+                <input type="tel" name="user_phone" placeholder="Teléfono" required>
+                <input type="date" name="appointment_date" required>
+                <input type="time" name="appointment_time" required>
+                <textarea name="message" rows="5" placeholder="Motivo de la cita" required></textarea>
+                <button type="submit">Agendar Cita</button>
+            </form>
         </div>
-        <form id="appointment-form">
-            <input type="text" name="user_name" placeholder="Nombre completo" required>
-            <input type="email" name="user_email" placeholder="Correo electrónico" required>
-            <input type="tel" name="user_phone" placeholder="Teléfono" required>
-            <input type="date" name="appointment_date" required>
-            <input type="time" name="appointment_time" required>
-            <textarea name="message" rows="5" placeholder="Mensaje o motivo de la cita" required></textarea>
-            <button type="submit">Agendar Cita</button>
-        </form>
     </section>
 
-    <!-- ==== Blog ==== -->
-    <section id="blog" class="blog">
-        <div class="section-header">
-            <p class="section-subtitle">Nuestro Blog</p>
-            <h2 class="section-title">Consejos y Novedades</h2>
-        </div>
-        <div class="blog-grid">
-            <article class="blog-card">
-                <img src="https://images.unsplash.com/photo-6228724-4b0b0c8c5e5c?auto=format&fit=crop&w=800&q=80"
-                     alt="Consejo de higiene dental">
-                <div class="info">
-                    <h3>5 hábitos para una boca sana</h3>
-                    <p>Descubre las pequeñas acciones diarias que marcan la diferencia en tu salud bucal.</p>
-                </div>
-            </article>
-            <article class="blog-card">
-                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80"
-                     alt="Tecnología dental">
-                <div class="info">
-                    <h3>Innovaciones en implantes dentales</h3>
-                    <p>Conoce las últimas tecnologías que hacen los implantes más seguros y cómodos.</p>
-                </div>
-            </article>
-            <article class="blog-card">
-                <img src="https://images.unsplash.com/photo-1526403227565-5a5b7c9e9c3c?auto=format&fit=crop&w=800&q=80"
-                     alt="Ortodoncia estética">
-                <div class="info">
-                    <h3>Ortodoncia invisible: ¿es para ti?</h3>
-                    <p>Ventajas y consideraciones de los alineadores transparentes.</p>
-                </div>
-            </article>
-        </div>
+    <!-- ==== Mapa ==== -->
+    <section id="location" class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.456286121895!2d-3.70379!3d40.41678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42299212f32677%3A0x297d8813ed2a9f66!2sMadrid%2C%20Espa%C3%B1a!5e0!3m2!1ses!2smx!4v1690000000000!5m2!1ses!2smx" allowfullscreen="" loading="lazy"></iframe>
     </section>
 
     <!-- ==== Contacto ==== -->
     <section id="contact" class="contact">
-        <div class="section-header">
-            <p class="section-subtitle">Contáctanos</p>
-            <h2 class="section-title">¿Tienes alguna duda?</h2>
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Contáctanos</p>
+                <h2 class="section-title">¿Tienes alguna duda?</h2>
+            </div>
+            <form id="contact-form">
+                <input type="text" name="user_name" placeholder="Nombre completo" required>
+                <input type="email" name="user_email" placeholder="Correo electrónico" required>
+                <input type="tel" name="user_phone" placeholder="Teléfono (opcional)">
+                <textarea name="message" rows="5" placeholder="Tu mensaje" required></textarea>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
         </div>
-        <form id="contact-form">
-            <input type="text" name="user_name" placeholder="Nombre completo" required>
-            <input type="email" name="user_email" placeholder="Correo electrónico" required>
-            <input type="tel" name="user_phone" placeholder="Teléfono (opcional)">
-            <textarea name="message" rows="5" placeholder="Mensaje" required></textarea>
-            <button type="submit">Enviar Mensaje</button>
-        </form>
     </section>
 
     <!-- ==== Footer ==== -->
     <footer>
-        <p>&copy; 2025 Sonrisa Saludable. Todos los derechos reservados.</p>
+        <div class="footer-content">
+            <div class="footer-logo">LiaDent</div>
+            <p>Brindando sonrisas saludables desde 2015.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <button class="dark-mode-toggle" id="dark-mode-toggle">
+                <i class="fas fa-moon"></i> Modo Oscuro
+            </button>
+            <p>&copy; 2025 LiaDent. Todos los derechos reservados.</p>
+        </div>
     </footer>
 
-    <!-- Cargar EmailJS SDK -->
+    <!-- ==== WhatsApp & Chatbot ==== -->
+    <a href="https://wa.me/521234567890" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="chatbot-btn" id="chatbot-btn">
+        <i class="fas fa-comment"></i>
+    </div>
+
+    <div class="chatbot-window" id="chatbot-window">
+        <div class="chat-header">
+            <span>Asistente Dental</span>
+            <button id="close-chat">&times;</button>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="msg bot">¡Hola! Soy tu asistente dental. ¿En qué puedo ayudarte?</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Escribe tu pregunta...">
+            <button id="send-msg"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    
-    <!-- Scripts JavaScript -->
     <script>
         // Inicializar EmailJS
         (function() {
             emailjs.init({
                 publicKey: "2pXEsujV1RO63mG4C",
                 blockHeadless: true,
-                limitRate: {
-                    throttle: 10000, // 10 segundos entre envíos
-                }
+                limitRate: { throttle: 10000 }
             });
         })();
 
-        // Configurar formularios después de que el DOM esté cargado
-        document.addEventListener('DOMContentLoaded', function() {
-            // Formulario de contacto
-            const contactForm = document.getElementById('contact-form');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    emailjs.sendForm('service_oso1ui9', 'template_n491aea', this)
-                        .then(function() {
-                            alert('Mensaje enviado con éxito!');
-                            contactForm.reset();
-                        }, function(error) {
-                            alert('Error al enviar el mensaje. Por favor inténtalo de nuevo más tarde.');
-                            console.error('Error EmailJS:', error);
-                        });
-                });
-            }
+        // Observador de scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('show');
+            });
+        }, { threshold: 0.1 });
 
-            // Formulario de citas
-            const appointmentForm = document.getElementById('appointment-form');
-            if (appointmentForm) {
-                appointmentForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    emailjs.sendForm('service_oso1ui9', 'template_n491aea', this)
-                        .then(function() {
-                            alert('Cita agendada con éxito! Nos pondremos en contacto contigo.');
-                            appointmentForm.reset();
-                        }, function(error) {
-                            alert('Error al agendar la cita. Por favor inténtalo de nuevo más tarde.');
-                            console.error('Error EmailJS:', error);
-                        });
-                });
-            }
+        document.querySelectorAll('section, .hero').forEach(el => {
+            observer.observe(el);
+        });
 
-            // Smooth scroll
-            document.querySelectorAll('a[href^="#"]').forEach(a => {
-                a.addEventListener('click', e => {
-                    e.preventDefault();
-                    const target = document.querySelector(a.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
+        // Menú móvil
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        hamburger?.addEventListener('click', () => {
+            nav.classList.toggle('open');
+            hamburger.classList.toggle('open');
+        });
+
+        nav?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('open');
+                hamburger.classList.remove('open');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Header shadow on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (header) {
+                header.style.boxShadow = window.scrollY > 50 ? '0 4px 15px rgba(0,0,0,0.1)' : '0 2px 10px rgba(0,0,0,0.05)';
+            }
+        });
+
+        // Modo oscuro
+        const toggle = document.getElementById('dark-mode-toggle');
+        toggle?.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const icon = toggle.querySelector('i');
+            icon.className = document.documentElement.classList.contains('dark') ? 'fas fa-sun' : 'fas fa-moon';
+            toggle.innerHTML = `<i class="${icon.className}"></i> ${document.documentElement.classList.contains('dark') ? 'Modo Claro' : 'Modo Oscuro'}`;
+        });
+
+        // Galería con filtro
+        const buttons = document.querySelectorAll('.filter-btn');
+        const items = document.querySelectorAll('.gallery-item');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+
+                items.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-type') === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.classList.add('show'), 10);
+                    } else {
+                        item.classList.remove('show');
+                        setTimeout(() => item.style.display = 'none', 300);
                     }
                 });
             });
+        });
 
-            // Header shadow on scroll
-            window.addEventListener('scroll', () => {
-                const header = document.querySelector('header');
-                if (header) {
-                    header.style.boxShadow = window.scrollY > 50 ?
-                        '0 4px 15px rgba(0,0,0,.1)' :
-                        '0 2px 10px rgba(0,0,0,.05)';
-                }
+        // Carrusel de testimonios
+        let currentIndex = 0;
+        const slider = document.querySelector('.testimonial-slider');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            slider.style.transform = `translateX(${-index * 320}px)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                currentIndex = parseInt(dot.getAttribute('data-index'));
+                showSlide(currentIndex);
             });
+        });
 
-            // Hamburger toggle (mobile)
-            const hamburger = document.querySelector('.hamburger');
-            const nav = document.querySelector('nav');
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % dots.length;
+            showSlide(currentIndex);
+        }, 4000);
 
-            if (hamburger && nav) {
-                hamburger.addEventListener('click', () => {
-                    nav.classList.toggle('open');
+        // Chatbot
+        const chatBtn = document.getElementById('chatbot-btn');
+        const chatWindow = document.getElementById('chatbot-window');
+        const closeChat = document.getElementById('close-chat');
+        const chatInput = document.getElementById('chat-input');
+        const sendMsg = document.getElementById('send-msg');
+        const chatBody = document.getElementById('chat-body');
+
+        const responses = {
+            "hola": "¡Hola! ¿En qué puedo ayudarte? Puedes preguntar por servicios, precios o agendar una cita.",
+            "servicios": "Ofrecemos: Odontología general, Ortodoncia, Implantes, Blanqueamiento y más. ¿Te interesa alguno?",
+            "precio": "Los precios varían según el tratamiento. ¿Podrías decirme qué servicio necesitas?",
+            "cita": "Para agendar una cita, haz clic en 'Agendar Cita' o escríbenos por WhatsApp. ¡Te atenderemos enseguida!",
+            "gracias": "¡De nada! Estoy aquí para ayudarte.",
+            "default": "No entiendo tu pregunta. Prueba con: 'servicios', 'cita' o 'precio'."
+        };
+
+        chatBtn.addEventListener('click', () => {
+            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatWindow.style.display = 'none';
+        });
+
+        sendMsg.addEventListener('click', () => {
+            const msg = chatInput.value.trim().toLowerCase();
+            if (!msg) return;
+
+            const userMsg = document.createElement('div');
+            userMsg.className = 'msg user';
+            userMsg.textContent = msg;
+            chatBody.appendChild(userMsg);
+
+            const botMsg = document.createElement('div');
+            botMsg.className = 'msg bot';
+            botMsg.textContent = responses[msg] || responses.default;
+            chatBody.appendChild(botMsg);
+
+            chatInput.value = '';
+            chatBody.scrollTop = chatBody.scrollHeight;
+        });
+
+        chatInput.addEventListener('keypress', e => {
+            if (e.key === 'Enter') sendMsg.click();
+        });
+
+        // Formulario de citas
+        document.getElementById('appointment-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            emailjs.sendForm('service_oso1ui9', 'template_6gynhr9', this)
+                .then(() => {
+                    alert('✅ Cita agendada. Pronto nos contactaremos contigo.');
+                    this.reset();
+                }, (error) => {
+                    alert('❌ Error al agendar. Inténtalo más tarde.');
+                    console.error(error);
                 });
+        });
 
-                // Cerrar menú al hacer click en un enlace (mobile)
-                nav.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => nav.classList.remove('open'));
+        // Formulario de contacto
+        document.getElementById('contact-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            emailjs.sendForm('service_oso1ui9', 'template_n491aea', this)
+                .then(() => {
+                    alert('✅ Mensaje enviado con éxito');
+                    this.reset();
+                }, (error) => {
+                    alert('❌ Error al enviar. Inténtalo más tarde.');
+                    console.error(error);
                 });
-            }
         });
     </script>
 </body>
