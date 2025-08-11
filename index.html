@@ -1152,53 +1152,242 @@
             showSlide(currentIndex);
         }, 4000);
 
-        // Chatbot
-        const chatBtn = document.getElementById('chatbot-btn');
-        const chatWindow = document.getElementById('chatbot-window');
-        const closeChat = document.getElementById('close-chat');
-        const chatInput = document.getElementById('chat-input');
-        const sendMsg = document.getElementById('send-msg');
-        const chatBody = document.getElementById('chat-body');
+       // ========================
+// 💬 CHATBOT INTELIGENTE - MÁS CHIDO QUE NUNCA
+// ========================
+const chatBtn = document.getElementById('chatbot-btn');
+const chatWindow = document.getElementById('chatbot-window');
+const closeChat = document.getElementById('close-chat');
+const chatInput = document.getElementById('chat-input');
+const sendMsg = document.getElementById('send-msg');
+const chatBody = document.getElementById('chat-body');
 
-        const responses = {
-            "hola": "¡Hola! ¿En qué puedo ayudarte? Puedes preguntar por servicios, precios o agendar una cita.",
-            "servicios": "Ofrecemos: Odontología general, Ortodoncia, Implantes, Blanqueamiento y más. ¿Te interesa alguno?",
-            "precio": "Los precios varían según el tratamiento. ¿Podrías decirme qué servicio necesitas?",
-            "cita": "Para agendar una cita, haz clic en 'Agendar Cita' o escríbenos por WhatsApp. ¡Te atenderemos enseguida!",
-            "gracias": "¡De nada! Estoy aquí para ayudarte.",
-            "default": "No entiendo tu pregunta. Prueba con: 'servicios', 'cita' o 'precio'."
-        };
+// Base de conocimiento con similitud ponderada
+const knowledge = [
+    {
+        keywords: ['hola', 'buen', 'hey', 'saludos', 'buenas'],
+        responses: [
+            '¡Hola! 😊 Soy el asistente de <strong>LiaDent</strong>. ¿En qué puedo ayudarte?',
+            '¡Buenos días/tardes! 👋 ¿Te gustaría información sobre servicios, horarios o agendar una cita?'
+        ]
+    },
+    {
+        keywords: ['gracias', 'mil gracias', 'thank', 'obligado'],
+        responses: [
+            '¡Con gusto! 😊 Si tienes otra pregunta, aquí estoy.',
+            'Para servirte. ¿Necesitas ayuda con algo más?'
+        ]
+    },
+    {
+        keywords: ['adios', 'chao', 'hasta luego', 'nos vemos', 'bye'],
+        responses: [
+            '¡Hasta pronto! Que tengas una sonrisa perfecta 😁',
+            'Si necesitas ayuda después, ya sabes dónde encontrarme. ¡Cuídate! 👋'
+        ]
+    },
+    {
+        keywords: ['servicio', 'ofrecen', 'hacen', 'tratamiento', 'especialidad'],
+        responses: [
+            'En <strong>LiaDent</strong> ofrecemos:<br><br>' +
+            '🦷 <strong>Odontología General</strong>: limpiezas, empastes, extracciones<br>' +
+            '✨ <strong>Ortodoncia</strong>: brackets y alineadores (como Invisalign)<br>' +
+            '🪥 <strong>Implantes Dentales</strong>: solución permanente<br>' +
+            '💎 <strong>Blanqueamiento</strong>: en clínica o para casa<br>' +
+            '👶 Atención infantil desde los 3 años<br><br>' +
+            '¿Te interesa saber más sobre alguno?'
+        ]
+    },
+    {
+        keywords: ['ortodoncia', 'bracket', 'alineador', 'invisalign', 'dientes derechos'],
+        responses: [
+            '¡Claro! Nuestra ortodoncia incluye:<br><br>' +
+            '✔️ Brackets metálicos y estéticos<br>' +
+            '✔️ Alineadores transparentes (como Invisalign)<br>' +
+            '✔️ Evaluación gratuita con escaneo 3D<br>' +
+            '✔️ Planes de pago flexibles<br><br>' +
+            '¿Quieres agendar una <a href="#appointment" class="scroll-link"><strong>cita de valoración</strong></a>?'
+        ]
+    },
+    {
+        keywords: ['implante', 'implantes', 'diente perdido', 'reemplazar', 'falta diente'],
+        responses: [
+            'Los <strong>implantes dentales</strong> son la solución más segura y duradera.<br><br>' +
+            'Usamos tecnología de vanguardia y materiales de alta calidad.<br><br>' +
+            '✅ Durabilidad: 20+ años<br>' +
+            '✅ Apariencia natural<br>' +
+            '✅ Sin afectar dientes vecinos<br><br>' +
+            '¿Te gustaría una <a href="#appointment" class="scroll-link"><strong>evaluación gratuita</strong></a>?'
+        ]
+    },
+    {
+        keywords: ['blanqueamiento', 'blanco', 'blanquear', 'sonrisa blanca'],
+        responses: [
+            'Nuestro <strong>blanqueamiento profesional</strong> es 100% seguro:<br><br>' +
+            '✨ En clínica: 1 hora, resultados inmediatos<br>' +
+            '🏡 En casa: kit personalizado con férula<br>' +
+            '💰 Promoción: 2x1 en blanqueamiento combinado<br><br>' +
+            '¿Te interesa agendar tu sesión?'
+        ]
+    },
+    {
+        keywords: ['general', 'limpieza', 'chequeo', 'empaste', 'revision'],
+        responses: [
+            'La <strong>odontología general</strong> es clave para prevenir.<br><br>' +
+            'Ofrecemos:<br>' +
+            '🪥 Limpieza profesional (cada 6 meses)<br>' +
+            '🪥 Empastes estéticos<br>' +
+            '🪥 Extracciones<br>' +
+            '🪥 Diagnóstico temprano<br><br>' +
+            '¿Quieres agendar tu <a href="#appointment" class="scroll-link"><strong>limpieza</strong></a>?'
+        ]
+    },
+    {
+        keywords: ['horario', 'abren', 'cierran', 'atencion', 'cuando'],
+        responses: [
+            'Estamos abiertos:<br><br>' +
+            '📅 <strong>Lunes a Viernes</strong>: 8:00 AM - 7:00 PM<br>' +
+            '📅 <strong>Sábados</strong>: 9:00 AM - 3:00 PM<br>' +
+            '❌ <strong>Domingos</strong>: Cerrado<br><br>' +
+            '¿Quieres agendar para esta semana?'
+        ]
+    },
+    {
+        keywords: ['ubicacion', 'direccion', 'llegar', 'mapa', 'donde'],
+        responses: [
+            'Estamos en el centro de la ciudad, cerca del parque principal.<br><br>' +
+            '📍 <strong>Calle Sonrisa #123, Col. Dentalia</strong><br><br>' +
+            '👉 <a href="#location" class="scroll-link"><strong>Ver en el mapa</strong></a> o en <a href="https://maps.app.goo.gl/tu-link" target="_blank"><strong>Google Maps</strong></a>.'
+        ]
+    },
+    {
+        keywords: ['cita', 'agendar', 'reservar', 'turno', 'consulta'],
+        responses: [
+            '¡Con gusto! Puedes agendar tu cita de dos formas:<br><br>' +
+            '📅 <a href="#appointment" class="scroll-link"><strong>Formulario en línea</strong></a><br>' +
+            '📱 <a href="https://wa.me/521234567890" target="_blank"><strong>WhatsApp</strong></a><br><br>' +
+            '¿Prefieres que te ayude a llenar el formulario?'
+        ]
+    },
+    {
+        keywords: ['precio', 'cuanto', 'costo', 'tarifa', 'inversion'],
+        responses: [
+            'Los precios varían por tratamiento. Aquí una guía:<br><br>' +
+            '🦷 Limpieza: desde $800 MXN<br>' +
+            '🦷 Blanqueamiento: desde $2,500 MXN<br>' +
+            '🦷 Ortodoncia: desde $15,000 MXN (con planes)<br>' +
+            '🦷 Implante: desde $12,000 MXN<br><br>' +
+            '¿Te interesa un <strong>presupuesto personalizado sin costo</strong>?'
+        ]
+    },
+    {
+        keywords: ['dolor', 'muela', 'urgencia', 'emergencia', 'duele'],
+        responses: [
+            'Lamentamos que tengas dolor 😣. Las emergencias las atendemos con prioridad.<br><br>' +
+            '📞 <strong>Llámanos al (55) 1234-5678</strong><br>' +
+            '💬 O escríbenos por <a href="https://wa.me/521234567890" target="_blank"><strong>WhatsApp</strong></a><br><br>' +
+            'Te atenderemos lo antes posible.'
+        ]
+    },
+    {
+        keywords: ['menu', 'opciones', 'ayuda'],
+        responses: [
+            'Puedes preguntarme sobre:<br><br>' +
+            '🔹 <strong>Servicios</strong> (ortodoncia, implantes, etc.)<br>' +
+            '🔹 <strong>Horarios</strong><br>' +
+            '🔹 <strong>Ubicación</strong><br>' +
+            '🔹 <strong>Precios</strong><br>' +
+            '🔹 <strong>Agendar cita</strong><br>' +
+            '🔹 <strong>Emergencias</strong><br><br>' +
+            '¡Estoy aquí para ayudarte! 😊'
+        ]
+    },
+    {
+        keywords: [],
+        responses: [
+            'No entendí tu pregunta 😕<br><br>' +
+            'Puedes escribir <strong>"menú"</strong> para ver opciones.<br>' +
+            'O preguntar por: servicios, precios, horarios o agendar cita.'
+        ]
+    }
+];
 
-        chatBtn.addEventListener('click', () => {
-            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
-        });
+// Función para calcular similitud por palabras clave
+function getResponse(message) {
+    message = message.toLowerCase();
+    let bestMatch = null;
+    let maxScore = 0;
 
-        closeChat.addEventListener('click', () => {
-            chatWindow.style.display = 'none';
-        });
+    for (let item of knowledge) {
+        if (item.keywords.length === 0) continue;
+        let score = item.keywords.reduce((acc, word) => {
+            return acc + (message.includes(word) ? 1 : 0);
+        }, 0);
 
-        sendMsg.addEventListener('click', () => {
-            const msg = chatInput.value.trim().toLowerCase();
-            if (!msg) return;
+        if (score > maxScore) {
+            maxScore = score;
+            bestMatch = item;
+        }
+    }
 
-            const userMsg = document.createElement('div');
-            userMsg.className = 'msg user';
-            userMsg.textContent = msg;
-            chatBody.appendChild(userMsg);
+    return bestMatch
+        ? bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)]
+        : knowledge[knowledge.length - 1].responses[0];
+}
 
-            const botMsg = document.createElement('div');
-            botMsg.className = 'msg bot';
-            botMsg.textContent = responses[msg] || responses.default;
-            chatBody.appendChild(botMsg);
+// Animación de "escribiendo..."
+function typingEffect(text, callback) {
+    const typing = document.createElement('div');
+    typing.className = 'msg bot';
+    typing.innerHTML = '<em>Escribiendo...</em>';
+    chatBody.appendChild(typing);
+    chatBody.scrollTop = chatBody.scrollHeight;
 
-            chatInput.value = '';
-            chatBody.scrollTop = chatBody.scrollHeight;
-        });
+    setTimeout(() => {
+        typing.innerHTML = text;
+        chatBody.scrollTop = chatBody.scrollHeight;
+        callback && callback();
+    }, Math.min(800 + text.length * 20, 2000)); // Tiempo realista
+}
 
-        chatInput.addEventListener('keypress', e => {
-            if (e.key === 'Enter') sendMsg.click();
-        });
+// Mostrar/ocultar chat
+chatBtn.addEventListener('click', () => {
+    chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+    if (chatWindow.style.display === 'flex') {
+        chatInput.focus();
+    }
+});
 
+closeChat.addEventListener('click', () => {
+    chatWindow.style.display = 'none';
+});
+
+// Enviar mensaje
+function sendMessage() {
+    const msg = chatInput.value.trim();
+    if (!msg) return;
+
+    // Añadir mensaje del usuario
+    const userMsg = document.createElement('div');
+    userMsg.className = 'msg user';
+    userMsg.textContent = msg;
+    chatBody.appendChild(userMsg);
+
+    // Limpiar input
+    chatInput.value = '';
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    // Respuesta del bot con efecto de escritura
+    const response = getResponse(msg);
+    typingEffect(response, () => {
+        // Auto-scroll
+        chatBody.scrollTop = chatBody.scrollHeight;
+    });
+}
+
+sendMsg.addEventListener('click', sendMessage);
+chatInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') sendMessage();
+});
         // Formulario de citas
         document.getElementById('appointment-form')?.addEventListener('submit', function(e) {
             e.preventDefault();
